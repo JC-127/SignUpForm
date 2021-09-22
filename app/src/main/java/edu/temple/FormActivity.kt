@@ -3,37 +3,65 @@ package edu.temple
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
-import com.google.android.material.button.MaterialButton
+import android.view.View;
+import android.widget.EditText;
 
+/*
+private var String.error: String
+    get() {}
+    set() {}
+*/
 class FormActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        TextView firstname =(TextView) findViewById(R.id.firstname);
-        TextView lastname =(TextView) findViewById(R.id.lastname);
-        TextView email =(TextView) findViewById(R.id.email);
-        TextView password =(TextView) findViewById(R.id.password);
-        TextView confirmpassword =(TextView) findViewById(R.id.confirmpassword);
+                val firstname: EditText = findViewById(R.id.firstName)
+                val lastname : EditText = findViewById(R.id.lastName)
+                val emailAdd: EditText = findViewById(R.id.email)
+                val inputPassword: EditText = findViewById(R.id.userPassword)
+                val confirmPassword: EditText = findViewById(R.id.confirmPassword)
+                val registerButton: Button = findViewById(R.id.registerButton)
 
-        MaterialButton nextbutton = (MaterialButton) findViewById(R.id.nextbutton);
-        MaterialButton loginbutton = (MaterialButton) findViewById(R.id.loginbutton);
+                // Create listener for click event
+                val ocl: View.OnClickListener = object : View.OnClickListener {
+                    override fun onClick(v: View?) {
 
-        loginbutton.setOnClickListener(new View.OnClickListener() {
-            @override
-            public void onClick(View v) {
-                if (firstname.getText().toString().equals("admin") && password.getText().toString().equals("admin")) {
-                    Toast.makeText(FormActivity.this, "LOG IN SUCCESSFUL", Toast.LENGTH_SHORT).show();
-                }
-                else
-                    Toast.makeText(FormActivity.this, "LOG IN FAILED", Toast.LENGTH_SHORT).show();
-            }
-        }
+                        val name: String = firstname.getText().toString()
+                        val name2: String = lastname.getText().toString()
+                        val email: String = emailAdd.getText().toString()
+                        val uPassword: String = inputPassword.getText().toString()
+                        val confirmPassword: String = confirmPassword.getText().toString()
 
+                        if (name == "") {
+                            val t: Toast = Toast.makeText(this@FormActivity, "Please enter a first name", Toast.LENGTH_SHORT)
+                            t.show()
+                        }//end if()
 
+                        else if (name2 == "") {
+                            val t: Toast = Toast.makeText(this@FormActivity, "Please enter a last name", Toast.LENGTH_SHORT)
+                            t.show()
+                        }//end if
 
+                        else if(email == ""){
+                            val t: Toast = Toast.makeText(this@FormActivity, "Please enter an email", Toast.LENGTH_SHORT)
+                            t.show()
+                        }//end else if()
 
-    }
-}
+                        else if ( (uPassword != confirmPassword) || (confirmPassword != uPassword)) {
+                            val t: Toast = Toast.makeText(this@FormActivity, "Error: Passwords don't match", Toast.LENGTH_SHORT)
+                            t.show()
+                        }//end else if()
+
+                        else {
+                            val t: Toast =
+                                Toast.makeText(this@FormActivity, "Your information has been saved! Welcome and thank you for registering!",
+                                    Toast.LENGTH_SHORT)
+                            t.show()
+                        }//end else()
+                    }//end onClick()
+                }//end val ocl : View.OnClickListener = object : View.OnClickListener
+                registerButton.setOnClickListener(ocl)
+    }//end onCreate()
+}//end class FormActivity()

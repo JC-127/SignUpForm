@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SignUpForm2">
         <activity
+            android:name=".Register"
+            android:exported="true" />
+        <activity
             android:name=".FormActivity"
             android:exported="true">
             <intent-filter>
